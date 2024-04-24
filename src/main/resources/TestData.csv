@@ -1,0 +1,6 @@
+﻿UserType,Action,UserID,RFIDData,FaceData,FingerprintData
+Admin,addUser,Harshit,HarshitRFID,HarshitFace,HarshitFingerprint
+Admin,addUser,Asad,AsadRFID,AsadFace,AsadFingerprint
+Admin,addUser,Danielle,DanielleRFID,DanielleFace,DanielleFingerprint
+User,,Harshit,HarshitRFID,HarshitFace,HarshitFingerprint
+User, ,Asad,AsadRFID,AsadFace,AsadFingerprint
