@@ -25,7 +25,6 @@ public class UsersDB {
     public void addUser(User user) {
         this.users.add(user);
         System.out.println(user.getUserID() + " added to the database.");
-//        System.out.println("Able to add user to the database.");
     }
 
     public void removeUser(User user) {
@@ -34,7 +33,7 @@ public class UsersDB {
 
     public User getUser(String userID) {
         for (User user : users) {
-            if (user.getUserID() == userID) {
+            if (user.getUserID().equals(userID)) {
                 return user;
             }
         }
@@ -43,7 +42,7 @@ public class UsersDB {
 
     public User getUserByRfid(String rfidData) {
         for (User user : users) {
-            if (user.getRfidData() == rfidData) {
+            if (user.getRfidData().equals(rfidData)) {
                 return user;
             }
         }
@@ -52,7 +51,7 @@ public class UsersDB {
 
     public User getUserByFingerPrint(String fingerPrintData) {
         for (User user : users) {
-            if (user.getFingerPrintData() == fingerPrintData) {
+            if (user.getFingerPrintData().equals(fingerPrintData)) {
                 return user;
             }
         }
@@ -61,7 +60,7 @@ public class UsersDB {
 
     public User getUserByFace(String faceData) {
         for (User user : users) {
-            if (user.getFaceData() == faceData) {
+            if (user.getFaceData().equals(faceData)) {
                 return user;
             }
         }
@@ -70,7 +69,7 @@ public class UsersDB {
 
     public boolean isUserExist(String userID) {
         for (User user : users) {
-            if (user.getUserID() == userID) {
+            if (user.getUserID().equals(userID)) {
                 return true;
             }
         }
@@ -79,7 +78,7 @@ public class UsersDB {
 
     public boolean isUserExistByRfid(String rfidData) {
         for (User user : users) {
-            if (user.getRfidData() == rfidData) {
+            if (user.getRfidData().equals(rfidData)) {
                 return true;
             }
         }
@@ -88,7 +87,7 @@ public class UsersDB {
 
     public boolean isUserExistByFingerPrint(String fingerPrintData) {
         for (User user : users) {
-            if (user.getFingerPrintData() == fingerPrintData) {
+            if (user.getFingerPrintData().equals(fingerPrintData)) {
                 return true;
             }
         }
@@ -97,7 +96,7 @@ public class UsersDB {
 
     public boolean isUserExistByFace(String faceData) {
         for (User user : users) {
-            if (user.getFaceData() == faceData) {
+            if (user.getFaceData().equals(faceData)) {
                 return true;
             }
         }
