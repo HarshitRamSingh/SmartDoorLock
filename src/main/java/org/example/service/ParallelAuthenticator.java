@@ -1,5 +1,7 @@
 package org.example.service;
 
+import org.example.model.Face;
+import org.example.model.Fingerprint;
 import org.example.model.UsersDB;
 
 import java.util.concurrent.ExecutionException;
@@ -16,12 +18,12 @@ public class ParallelAuthenticator {
 
     private UsersDB usersDB;
 
-    public ParallelAuthenticator(FaceAuthentication faceAuthentication, FingerprintAuthentication fingerprintAuthentication, String userID, String faceData, String fingerprintData, UsersDB usersDB) {
+    public ParallelAuthenticator(FaceAuthentication faceAuthentication, FingerprintAuthentication fingerprintAuthentication, String userID, Face faceData, Fingerprint fingerprintData, UsersDB usersDB) {
         this.faceAuthentication = faceAuthentication;
         this.fingerprintAuthentication = fingerprintAuthentication;
         this.userID = userID;
-        this.faceData = faceData;
-        this.fingerprintData = fingerprintData;
+        this.faceData = faceData.getFaceData();
+        this.fingerprintData = fingerprintData.getFingerprintData();
         this.usersDB = usersDB;
     }
 

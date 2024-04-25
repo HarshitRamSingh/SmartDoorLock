@@ -1,30 +1,20 @@
 package org.example.model;
 
 public class RFID {
-    private int rfidID;
-    private int rfidData;
+    private String rfidData;
 
-    public int getRfidID() {
-        return this.rfidID;
-    }
-
-    public void setRfidID(int rfidID) {
-        this.rfidID = rfidID;
-    }
-
-    public int getRfidData() {
+    public String getRfidData() {
         return this.rfidData;
     }
 
-    public void setRfidData(int rfidData) {
+    public void setRfidData(String rfidData) {
         this.rfidData = rfidData;
     }
 
     public RFID() {
     }
 
-    public RFID(int rfidID, int rfidData) {
-        this.rfidID = rfidID;
+    public RFID(String rfidData) {
         this.rfidData = rfidData;
     }
 }

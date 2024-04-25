@@ -43,10 +43,11 @@ public class User {
     public User() {
     }
 
-    public User(String userID, String rfidData, String faceData, String fingerPrintData) {
+    public User(String userID, RFID rfid, Face face, Fingerprint fingerprint) {
         this.userID = userID;
-        this.RfidData = rfidData;
-        this.FaceData = faceData;
-        this.FingerPrintData = fingerPrintData;
+        this.RfidData = rfid.getRfidData(); // Assuming RFID class has a getRfidData method
+        this.FaceData = face.getFaceData(); // Assuming Face class has a getFaceData method
+        this.FingerPrintData = fingerprint.getFingerprintData(); // Assuming Fingerprint class has a getFingerPrintData method
     }
+
 }

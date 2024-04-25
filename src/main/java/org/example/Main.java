@@ -5,6 +5,8 @@ import org.example.display.AdminMainPage;
 import org.example.display.DoorSimulationPage;
 import org.example.model.Admin;
 import org.example.model.User;
+import org.example.controller.DoorController;
+import org.example.model.Attempt;
 import org.example.model.UsersDB;
 
 import javax.swing.*;
@@ -76,10 +78,11 @@ public class Main extends JFrame implements ActionListener {
         /*
         System.out.println("Hello and welcome!");
         UsersDB usersDB = new UsersDB();
-        RFIDAuthentication rfidAuthentication = new RFIDAuthentication(usersDB);
-        FaceAuthentication faceAuthentication = new FaceAuthentication(usersDB);
-        FingerprintAuthentication fingerprintAuthentication = new FingerprintAuthentication(usersDB);
-        DoorController doorController = new DoorController(rfidAuthentication, faceAuthentication, fingerprintAuthentication);
+        Attempt attempt = new Attempt();
+        RFIDAuthentication rfidAuthentication = new RFIDAuthentication(usersDB, attempt);
+        FaceAuthentication faceAuthentication = new FaceAuthentication(usersDB, attempt);
+        FingerprintAuthentication fingerprintAuthentication = new FingerprintAuthentication(usersDB, attempt);
+        DoorController doorController = new DoorController(rfidAuthentication, faceAuthentication, fingerprintAuthentication, usersDB, attempt);
         try {
             Iterator<List<String>> rowIterator = CSVReader.readCSV("src/main/resources/TestData.csv");
             while (rowIterator.hasNext()) {
