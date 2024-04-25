@@ -2,6 +2,7 @@
 Admin,addUser,Harshit,HarshitRFID,HarshitFace,HarshitFingerprint
 Admin,addUser,Asad,AsadRFID,AsadFace,AsadFingerprint
 Admin,addUser,Danielle,DanielleRFID,DanielleFace,DanielleFingerprint
+
 User,,Harshit,HarshitRFID,HarshitFace,Empty
 User, ,Harshit,HarshitRFID,AsadFace,AsadFingerprint
 User, ,Harshit,HarshitRFID,AsadFace,HarFingerprint
