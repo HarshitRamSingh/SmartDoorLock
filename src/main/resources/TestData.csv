@@ -2,5 +2,11 @@
 Admin,addUser,Harshit,HarshitRFID,HarshitFace,HarshitFingerprint
 Admin,addUser,Asad,AsadRFID,AsadFace,AsadFingerprint
 Admin,addUser,Danielle,DanielleRFID,DanielleFace,DanielleFingerprint
-User,,Harshit,HarshitRFID,HarshitFace,HarshitFingerprint
-User, ,Asad,AsadRFID,AsadFace,AsadFingerprint
+User,,Harshit,HarshitRFID,HarshitFace,Empty
+User, ,Harshit,HarshitRFID,AsadFace,AsadFingerprint
+User, ,Harshit,HarshitRFID,AsadFace,HarFingerprint
+Admin,addUser,Dan,DanRFID,DanFace,DanFingerprint
+User, ,Dan,DanRFID,DanFace,DanFingerprint
+Admin,deleteUser,Harshit
+Admin,modifyUser,Danielle,AsadRFID,AsadFace,AsadFingerprint
+Admin,viewUsers

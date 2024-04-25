@@ -1,30 +1,20 @@
 package org.example.model;
 
 public class Face {
-    private int faceID;
-    private int faceData;
+    private String faceData;
 
-    public int getFaceID() {
-        return this.faceID;
-    }
-
-    public void setFaceID(int faceID) {
-        this.faceID = faceID;
-    }
-
-    public int getFaceData() {
+    public String getFaceData() {
         return this.faceData;
     }
 
-    public void setFaceData(int faceData) {
+    public void setFaceData(String faceData) {
         this.faceData = faceData;
     }
 
     public Face() {
     }
 
-    public Face(int faceID, int faceData) {
-        this.faceID = faceID;
+    public Face(String faceData) {
         this.faceData = faceData;
     }
 }

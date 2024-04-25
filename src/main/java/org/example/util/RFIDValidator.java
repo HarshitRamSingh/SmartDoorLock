@@ -9,14 +9,15 @@ public class RFIDValidator {
     private static UsersDB usersDB;
     private static Attempt attempt;
 
-    public RFIDValidator(UsersDB usersDB) {
+    public RFIDValidator(UsersDB usersDB, Attempt attempt) {
         this.usersDB = usersDB;
+        this.attempt = attempt;
     }
     public static boolean authenticateRFID(String userID, String receivedRFIDData, UsersDB usersDB1) {
         // Find the user with the given userID
         //print the size if the userList
 
-        System.out.println("This is the size of the usersDB1: " + usersDB1.getUsers().size());
+//        System.out.println("This is the size of the usersDB1: " + usersDB1.getUsers().size());
 
         for (User user : usersDB1.getUsers()) {
             if (user.getUserID().equals(userID) && user.getRfidData().equals(receivedRFIDData)) {

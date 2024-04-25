@@ -2,6 +2,7 @@ package org.example.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class UsersDB {
     private List<User> users = new ArrayList<User>();
@@ -26,6 +27,26 @@ public class UsersDB {
         this.users.add(user);
         System.out.println(user.getUserID() + " added to the database.");
 //        System.out.println("Able to add user to the database.");
+    }
+
+    public void modifyUser(User user) {
+        for (User u : users) {
+            if (Objects.equals(u.getUserID(), user.getUserID())) {
+                u.setRfidData(user.getRfidData());
+                u.setFaceData(user.getFaceData());
+                u.setFingerPrintData(user.getFingerPrintData());
+            }
+        }
+    }
+
+    public void deleteUser(String userID) {
+        users.removeIf(u -> userID.equals(u.getUserID()));
+    }
+
+    public void viewUsers() {
+        for (User u : users) {
+            System.out.println(u.getUserID() + " " + u.getRfidData() + " " + u.getFaceData() + " " + u.getFingerPrintData());
+        }
     }
 
     public void removeUser(User user) {

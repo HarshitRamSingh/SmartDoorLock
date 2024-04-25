@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.controller.DoorController;
+import org.example.model.Attempt;
 import org.example.model.UsersDB;
 import org.example.service.FaceAuthentication;
 import org.example.service.FingerprintAuthentication;
@@ -16,10 +17,11 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Hello and welcome!");
         UsersDB usersDB = new UsersDB();
-        RFIDAuthentication rfidAuthentication = new RFIDAuthentication(usersDB);
-        FaceAuthentication faceAuthentication = new FaceAuthentication(usersDB);
-        FingerprintAuthentication fingerprintAuthentication = new FingerprintAuthentication(usersDB);
-        DoorController doorController = new DoorController(rfidAuthentication, faceAuthentication, fingerprintAuthentication);
+        Attempt attempt = new Attempt();
+        RFIDAuthentication rfidAuthentication = new RFIDAuthentication(usersDB, attempt);
+        FaceAuthentication faceAuthentication = new FaceAuthentication(usersDB, attempt);
+        FingerprintAuthentication fingerprintAuthentication = new FingerprintAuthentication(usersDB, attempt);
+        DoorController doorController = new DoorController(rfidAuthentication, faceAuthentication, fingerprintAuthentication, usersDB, attempt);
         try {
             Iterator<List<String>> rowIterator = CSVReader.readCSV("src/main/resources/TestData.csv");
             while (rowIterator.hasNext()) {
