@@ -54,7 +54,7 @@ public class UsersDB {
 
     public User getUser(String userID) {
         for (User user : users) {
-            if (user.getUserID().equals(userID)) {
+            if (Objects.equals(user.getUserID(), userID)) {
                 return user;
             }
         }
@@ -63,7 +63,7 @@ public class UsersDB {
 
     public User getUserByRfid(String rfidData) {
         for (User user : users) {
-            if (user.getRfidData().equals(rfidData)) {
+            if (Objects.equals(user.getRfidData(), rfidData)) {
                 return user;
             }
         }
@@ -72,7 +72,7 @@ public class UsersDB {
 
     public User getUserByFingerPrint(String fingerPrintData) {
         for (User user : users) {
-            if (user.getFingerPrintData().equals(fingerPrintData)) {
+            if (Objects.equals(user.getFingerPrintData(), fingerPrintData)) {
                 return user;
             }
         }
@@ -81,7 +81,7 @@ public class UsersDB {
 
     public User getUserByFace(String faceData) {
         for (User user : users) {
-            if (user.getFaceData().equals(faceData)) {
+            if (Objects.equals(user.getFaceData(), faceData)) {
                 return user;
             }
         }
@@ -90,7 +90,7 @@ public class UsersDB {
 
     public boolean isUserExist(String userID) {
         for (User user : users) {
-            if (user.getUserID().equals(userID)) {
+            if (Objects.equals(user.getUserID(), userID)) {
                 return true;
             }
         }
@@ -99,7 +99,7 @@ public class UsersDB {
 
     public boolean isUserExistByRfid(String rfidData) {
         for (User user : users) {
-            if (user.getRfidData().equals(rfidData)) {
+            if (Objects.equals(user.getRfidData(), rfidData)) {
                 return true;
             }
         }
@@ -108,7 +108,7 @@ public class UsersDB {
 
     public boolean isUserExistByFingerPrint(String fingerPrintData) {
         for (User user : users) {
-            if (user.getFingerPrintData().equals(fingerPrintData)) {
+            if (Objects.equals(user.getFingerPrintData(), fingerPrintData)) {
                 return true;
             }
         }
@@ -117,7 +117,7 @@ public class UsersDB {
 
     public boolean isUserExistByFace(String faceData) {
         for (User user : users) {
-            if (user.getFaceData().equals(faceData)) {
+            if (Objects.equals(user.getFaceData(), faceData)) {
                 return true;
             }
         }

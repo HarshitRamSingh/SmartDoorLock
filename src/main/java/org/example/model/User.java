@@ -45,9 +45,9 @@ public class User {
 
     public User(String userID, RFID rfid, Face face, Fingerprint fingerprint) {
         this.userID = userID;
-        this.RfidData = rfid.getRfidData(); // Assuming RFID class has a getRfidData method
-        this.FaceData = face.getFaceData(); // Assuming Face class has a getFaceData method
-        this.FingerPrintData = fingerprint.getFingerprintData(); // Assuming Fingerprint class has a getFingerPrintData method
+        this.RfidData = rfid.getRfidData();
+        this.FaceData = face.getFaceData();
+        this.FingerPrintData = fingerprint.getFingerprintData();
     }
 
 }

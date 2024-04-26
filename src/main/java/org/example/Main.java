@@ -5,6 +5,11 @@ import org.example.display.AdminMainPage;
 import org.example.display.DoorSimulationPage;
 import org.example.model.*;
 import org.example.controller.DoorController;
+import org.example.model.*;
+import org.example.service.FaceAuthentication;
+import org.example.service.FingerprintAuthentication;
+import org.example.service.RFIDAuthentication;
+import org.example.util.CSVReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,12 +81,15 @@ public class Main extends JFrame implements ActionListener {
         System.out.println("Hello and welcome!");
         UsersDB usersDB = new UsersDB();
         Attempt attempt = new Attempt();
-        RFIDAuthentication rfidAuthentication = new RFIDAuthentication(usersDB, attempt);
-        FaceAuthentication faceAuthentication = new FaceAuthentication(usersDB, attempt);
-        FingerprintAuthentication fingerprintAuthentication = new FingerprintAuthentication(usersDB, attempt);
-        DoorController doorController = new DoorController(rfidAuthentication, faceAuthentication, fingerprintAuthentication, usersDB, attempt);
+        Logger logger = new Logger();
+        TimeoutDB timeoutDB = new TimeoutDB();
+        TryCounter tryCounter = new TryCounter(timeoutDB);
+        RFIDAuthentication rfidAuthentication = new RFIDAuthentication(usersDB, attempt, tryCounter, logger);
+        FaceAuthentication faceAuthentication = new FaceAuthentication(usersDB, attempt, tryCounter, logger);
+        FingerprintAuthentication fingerprintAuthentication = new FingerprintAuthentication(usersDB, attempt, tryCounter, logger);
+        DoorController doorController = new DoorController(rfidAuthentication, faceAuthentication, fingerprintAuthentication, usersDB, attempt, tryCounter, timeoutDB);
         try {
-            Iterator<List<String>> rowIterator = CSVReader.readCSV("src/main/resources/TestData.csv");
+            Iterator<List<String>> rowIterator = CSVReader.readCSV("src/main/resources/TestData1.csv");
             while (rowIterator.hasNext()) {
                 doorController.processUser(rowIterator.next());
             }

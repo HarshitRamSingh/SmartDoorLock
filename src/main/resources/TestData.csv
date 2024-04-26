@@ -1,13 +1,12 @@
 ﻿UserType,Action,UserID,RFIDData,FaceData,FingerprintData
-Admin,addUser,Harshit,HarshitRFID,HarshitFace,HarshitFingerprint
-Admin,addUser,Asad,AsadRFID,AsadFace,AsadFingerprint
-Admin,addUser,Danielle,DanielleRFID,DanielleFace,DanielleFingerprint
-
-User,,Harshit,HarshitRFID,HarshitFace,Empty
-User, ,Harshit,HarshitRFID,AsadFace,AsadFingerprint
-User, ,Harshit,HarshitRFID,AsadFace,HarFingerprint
-Admin,addUser,Dan,DanRFID,DanFace,DanFingerprint
-User, ,Dan,DanRFID,DanFace,DanFingerprint
-Admin,deleteUser,Harshit
-Admin,modifyUser,Danielle,AsadRFID,AsadFace,AsadFingerprint
-Admin,viewUsers
+Admin,SmartLockAdmin,admin123,addUser,Harshit,HarshitRFID,HarshitFace,HarshitFingerprint
+Admin,SmartLockAdmin,admin123,addUser,Asad,AsadRFID,AsadFace,AsadFingerprint
+Admin,SmartLockAdmin,admin123,addUser,Danielle,DanielleRFID,DanielleFace,DanielleFingerprint
+User,Harshit,HarshitRFID,HarshitFace,Empty
+User,Harshit,HarshitRFID,AsadFace,AsadFingerprint
+User,Harshit,HarshitRFID,AsadFace,HarFingerprint
+Admin,SmartLockAdmin,admin123,addUser,Dan,DanRFID,DanFace,DanFingerprint
+User,Dan,DanRFID,DanFace,DanFingerprint
+Admin,SmartLockAdmin,admin123,deleteUser,Harshit
+Admin,SmartLockAdmin,admin123,modifyUser,Danielle,AsadRFID,AsadFace,AsadFingerprint
+Admin,Harshit,Harshit,viewUsers

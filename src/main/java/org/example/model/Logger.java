@@ -1,8 +1,12 @@
 package org.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Logger {
+    private static int nextLogID = 1;
     private int logID;
-    private String logData;
+    private List<Attempt> attempts;
 
     public int getLogID() {
         return this.logID;
@@ -12,19 +16,25 @@ public class Logger {
         this.logID = logID;
     }
 
-    public String getLogData() {
-        return this.logData;
+    public List<Attempt> getAttempts() {
+        return this.attempts;
     }
 
-    public void setLogData(String logData) {
-        this.logData = logData;
+    public void setAttempts(List<Attempt> attempts) {
+        this.attempts = attempts;
+    }
+
+    public Logger(int logID, List<Attempt> attempts) {
+        this.logID = logID;
+        this.attempts = attempts;
     }
 
     public Logger() {
+        this.logID = nextLogID++;
+        this.attempts = new ArrayList<>();
     }
 
-    public Logger(int logID, String logData) {
-        this.logID = logID;
-        this.logData = logData;
+    public void addAttempt(Attempt attempt) {
+        this.attempts.add(attempt);
     }
 }

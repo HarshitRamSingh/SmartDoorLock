@@ -5,45 +5,45 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TimeoutDB {
-    private int timeoutID;
-    private int timeoutData;
+    private Map<String, LocalDateTime> timeouts;
 
-    public int getTimeoutID() {
-        return this.timeoutID;
+    public Map<String, LocalDateTime> getTimeouts() {
+        return timeouts;
     }
 
-    public void setTimeoutID(int timeoutID) {
-        this.timeoutID = timeoutID;
+    public void setTimeouts(Map<String, LocalDateTime> timeouts) {
+        this.timeouts = timeouts;
     }
-
-    public int getTimeoutData() {
-        return this.timeoutData;
-    }
-
-    public void setTimeoutData(int timeoutData) {
-        this.timeoutData = timeoutData;
-    }
-
-    private Map<Integer, LocalDateTime> timeouts;
 
     public TimeoutDB() {
         this.timeouts = new HashMap<>();
     }
 
-    public void addTimeout(int userID) {
+    public TimeoutDB(Map<String, LocalDateTime> timeouts) {
+        this.timeouts = timeouts;
+    }
+
+    public void addTimeout(String userID) {
+        System.out.println("Adding timeout for user " + userID + " till " + LocalDateTime.now().plusSeconds(300));
         this.timeouts.put(userID, LocalDateTime.now().plusSeconds(300));
     }
 
-    public boolean isTimeout(int userID) {
-        if (!this.timeouts.containsKey(userID)) {
+    public boolean isTimeout(String userID) {
+        System.out.println("Checking if user " + userID + " is in timeout.");
+        if(this.timeouts.containsKey(userID)) {
+            System.out.println("Now time : " + LocalDateTime.now());;
+            System.out.println("Timeout time :" + this.timeouts.get(userID));
+            if (LocalDateTime.now().isBefore(this.timeouts.get(userID))) {
+                System.out.println("User " + userID + " is still in timeout.");
+                return true;
+            } else {
+                System.out.println("User " + userID + " has exited timeout.");
+                this.timeouts.remove(userID);
+                return false;
+            }
+        }
+        else {
             return false;
         }
-        LocalDateTime timeoutEnd = this.timeouts.get(userID);
-        return LocalDateTime.now().isBefore(timeoutEnd);
-    }
-
-    public TimeoutDB(int timeoutID, int timeoutData) {
-        this.timeoutID = timeoutID;
-        this.timeoutData = timeoutData;
     }
 }

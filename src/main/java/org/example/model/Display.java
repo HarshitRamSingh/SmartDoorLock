@@ -1,14 +1,17 @@
 package org.example.model;
 // Axe this
 public class Display {
-    private int displayID;
     private String displayData;
-
-    public int getDisplayID() {
-        return this.displayID;
+    public String getDisplayData() {
+        return this.displayData;
     }
-
-    public void setDisplayID(int display) {
-        this.displayID = display;
+    public Display() {
+    }
+    public Display(String display) {
+        this.displayData = display;
+    }
+    public void setDisplayData(String display) {
+        this.displayData = display;
+        System.out.println(display);
     }
 }

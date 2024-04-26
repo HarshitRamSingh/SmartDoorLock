@@ -1,11 +1,21 @@
 package org.example.model;
 
-public class TryCounter {
-    // Write code such that this class maintains the number of failed attempts to unlock the door. If the failed attempts exceed 3 push the latest time and date to timeout component
-    private int failedAttempts;
+import java.util.HashMap;
+import java.util.Map;
 
-    public int getFailedAttempts() {
-        return this.failedAttempts;
+public class TryCounter {
+    private int failedAttempts;
+    private TimeoutDB timeoutDB;
+    private Map<String, Integer> userFailedAttempts;
+
+    public TryCounter(TimeoutDB timeoutDB) {
+        this.failedAttempts = 0;
+        this.timeoutDB = timeoutDB;
+        this.userFailedAttempts = new HashMap<>();
+    }
+
+    public int getFailedAttempts(String userID) {
+        return this.userFailedAttempts.getOrDefault(userID, 0);
     }
 
     public void setFailedAttempts(int failedAttempts) {
@@ -13,40 +23,41 @@ public class TryCounter {
     }
 
     public TryCounter() {
+        this.userFailedAttempts = new HashMap<>();
     }
 
-    public TryCounter(int failedAttempts) {
-        this.failedAttempts = failedAttempts;
-    }
-
-    public void incrementFailedAttempts() {
-        this.failedAttempts++;
+    public void incrementFailedAttempts(String userID) {
+        int currentFailedAttempts = getFailedAttempts(userID);
+        this.userFailedAttempts.put(userID, currentFailedAttempts + 1);
+        System.out.println("Current failed attempts for user " + userID + ": " + getFailedAttempts(userID));
+        if  (getFailedAttempts(userID) >= 3) {
+            System.out.println("User " + userID + " has reached the maximum number of failed attempts. Pushing to timeout.");
+            pushToTimeout(userID);
+        }
     }
 
     public void resetFailedAttempts() {
         this.failedAttempts = 0;
     }
 
-    public void pushToTimeout() {
-        // push the latest time and date to timeout component
-        // Write code here
-
+    public void pushToTimeout(String userID) {
+        timeoutDB.addTimeout(userID);
     }
 
-    public void checkFailedAttempts() {
-        if (this.failedAttempts > 3) {
-            pushToTimeout();
-        }
-    }
+//    public void checkFailedAttempts() {
+//        if (this.failedAttempts > 3) {
+//            pushToTimeout();
+//        }
+//    }
 
     public void unlockDoor() {
         resetFailedAttempts();
     }
 
-    public void lockDoor() {
-        incrementFailedAttempts();
-        checkFailedAttempts();
-    }
+//    public void lockDoor() {
+//        incrementFailedAttempts();
+//        checkFailedAttempts();
+//    }
 
     public void displayFailedAttempts() {
         System.out.println("Failed attempts: " + this.failedAttempts);
