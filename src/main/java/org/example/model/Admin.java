@@ -28,7 +28,7 @@ public class Admin {
         this.adminPassword = adminPassword;
     }
 
-    public boolean validateCredentials(String adminID, String adminPassword) { // changed parameter type from int to String
+    public boolean validateCredentials(String adminID, String adminPassword) {
         return this.adminID.equals(adminID) && this.adminPassword.equals(adminPassword);
     }
 }

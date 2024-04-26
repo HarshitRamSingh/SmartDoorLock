@@ -10,6 +10,25 @@ import org.example.model.Logger;
 public class RFIDAuthentication {
     private RFIDValidator rfidValidator;
     private Logger logger;
+
+    public RFIDValidator getRfidValidator() {
+        return rfidValidator;
+    }
+
+    public void setRfidValidator(RFIDValidator rfidValidator) {
+        this.rfidValidator = rfidValidator;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    public RFIDAuthentication() {
+    }
     public RFIDAuthentication(UsersDB usersDB, Attempt attempt, TryCounter tryCounter, Logger logger) {
         this.logger = logger;
         this.rfidValidator = new RFIDValidator(usersDB, attempt, tryCounter);

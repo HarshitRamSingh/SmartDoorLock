@@ -10,6 +10,25 @@ import org.example.model.Logger;
 public class FingerprintAuthentication {
     private FingerprintValidator fingerprintValidator;
     private Logger logger;
+
+    public FingerprintValidator getFingerprintValidator() {
+        return fingerprintValidator;
+    }
+
+    public void setFingerprintValidator(FingerprintValidator fingerprintValidator) {
+        this.fingerprintValidator = fingerprintValidator;
+    }
+
+    public Logger getLogger() {
+        return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    public FingerprintAuthentication() {
+    }
     public FingerprintAuthentication(UsersDB usersDB, Attempt attempt, TryCounter tryCounter, Logger logger) {
         this.logger = logger;
         this.fingerprintValidator = new FingerprintValidator(usersDB, attempt, tryCounter);

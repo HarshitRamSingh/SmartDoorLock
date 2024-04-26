@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TryCounter {
-    // Write code such that this class maintains the number of failed attempts to unlock the door. If the failed attempts exceed 3 push the latest time and date to timeout component
     private int failedAttempts;
     private TimeoutDB timeoutDB;
     private Map<String, Integer> userFailedAttempts;

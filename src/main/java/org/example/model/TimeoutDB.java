@@ -5,29 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TimeoutDB {
-    private int timeoutID;
-    private int timeoutData;
-
-    public int getTimeoutID() {
-        return this.timeoutID;
-    }
-
-    public void setTimeoutID(int timeoutID) {
-        this.timeoutID = timeoutID;
-    }
-
-    public int getTimeoutData() {
-        return this.timeoutData;
-    }
-
-    public void setTimeoutData(int timeoutData) {
-        this.timeoutData = timeoutData;
-    }
-
     private Map<String, LocalDateTime> timeouts;
+
+    public Map<String, LocalDateTime> getTimeouts() {
+        return timeouts;
+    }
+
+    public void setTimeouts(Map<String, LocalDateTime> timeouts) {
+        this.timeouts = timeouts;
+    }
 
     public TimeoutDB() {
         this.timeouts = new HashMap<>();
+    }
+
+    public TimeoutDB(Map<String, LocalDateTime> timeouts) {
+        this.timeouts = timeouts;
     }
 
     public void addTimeout(String userID) {
@@ -52,10 +45,5 @@ public class TimeoutDB {
         else {
             return false;
         }
-    }
-
-    public TimeoutDB(int timeoutID, int timeoutData) {
-        this.timeoutID = timeoutID;
-        this.timeoutData = timeoutData;
     }
 }

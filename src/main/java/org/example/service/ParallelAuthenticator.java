@@ -15,8 +15,58 @@ public class ParallelAuthenticator {
     private String userID;
     private String faceData;
     private String fingerprintData;
-
     private UsersDB usersDB;
+
+    public FaceAuthentication getFaceAuthentication() {
+        return faceAuthentication;
+    }
+
+    public void setFaceAuthentication(FaceAuthentication faceAuthentication) {
+        this.faceAuthentication = faceAuthentication;
+    }
+
+    public FingerprintAuthentication getFingerprintAuthentication() {
+        return fingerprintAuthentication;
+    }
+
+    public void setFingerprintAuthentication(FingerprintAuthentication fingerprintAuthentication) {
+        this.fingerprintAuthentication = fingerprintAuthentication;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getFaceData() {
+        return faceData;
+    }
+
+    public void setFaceData(String faceData) {
+        this.faceData = faceData;
+    }
+
+    public String getFingerprintData() {
+        return fingerprintData;
+    }
+
+    public void setFingerprintData(String fingerprintData) {
+        this.fingerprintData = fingerprintData;
+    }
+
+    public UsersDB getUsersDB() {
+        return usersDB;
+    }
+
+    public void setUsersDB(UsersDB usersDB) {
+        this.usersDB = usersDB;
+    }
+
+    public ParallelAuthenticator() {
+    }
 
     public ParallelAuthenticator(FaceAuthentication faceAuthentication, FingerprintAuthentication fingerprintAuthentication, String userID, Face faceData, Fingerprint fingerprintData, UsersDB usersDB) {
         this.faceAuthentication = faceAuthentication;

@@ -44,7 +44,7 @@ public class FingerprintValidator {
                 }
             }
         }
-        attempt.incrementFailedAttempts(userID);
+
         System.out.println("This is coming from the FingerprintValidator class");
         System.out.println("User with UserID " + userID + " not found.");
         return false;

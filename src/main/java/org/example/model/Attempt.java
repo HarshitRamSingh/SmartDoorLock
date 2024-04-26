@@ -5,17 +5,19 @@ import java.util.Map;
 import java.time.LocalDateTime;
 
 public class Attempt {
-    private static int nextAttemptID = 1;
-    private static int maxFailedAttempts = 3;
-    private LocalDateTime attemptDateTime;
-    private String authType;
-    private int attemptID;
     private String userID;
-    private Map<String, Integer> userFailedAttempts;
-    private int failedAttempts;
-    private String attemptTime;
-    private String attemptDate;
+    private int attemptID;
+    private static int nextAttemptID = 1;
+    private String authType;
     private String attemptStatus;
+    private LocalDateTime attemptDateTime;
+    public String getUserID() {
+        return this.userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public int getAttemptID() {
         return this.attemptID;
@@ -25,28 +27,12 @@ public class Attempt {
         this.attemptID = attemptID;
     }
 
-    public String getUserID() {
-        return this.userID;
+    public String getAuthType() {
+        return this.authType;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
-    public String getAttemptTime() {
-        return this.attemptTime;
-    }
-
-    public void setAttemptTime(String attemptTime) {
-        this.attemptTime = attemptTime;
-    }
-
-    public String getAttemptDate() {
-        return this.attemptDate;
-    }
-
-    public void setAttemptDate(String attemptDate) {
-        this.attemptDate = attemptDate;
+    public void setAuthType(String authType) {
+        this.authType = authType;
     }
 
     public String getAttemptStatus() {
@@ -57,33 +43,16 @@ public class Attempt {
         this.attemptStatus = attemptStatus;
     }
 
+    public LocalDateTime getAttemptDateTime() {
+        return this.attemptDateTime;
+    }
+
+    public void setAttemptDateTime(LocalDateTime attemptDateTime) {
+        this.attemptDateTime = attemptDateTime;
+    }
+
     public Attempt() {
-        this.userFailedAttempts = new HashMap<>();
     }
-
-    public int getFailedAttempts() {
-        return this.failedAttempts;
-    }
-    //
-    public void incrementFailedAttempts() {
-        this.failedAttempts++;
-    }
-
-    public int getFailedAttempts(String userID) {
-        return this.userFailedAttempts.getOrDefault(userID, 0);
-    }
-
-    public void incrementFailedAttempts(String userID) {
-        this.userFailedAttempts.put(userID, getFailedAttempts(userID) + 1);
-    }
-
-//    public Attempt(int attemptID, String userID, String attemptTime, String attemptDate, String attemptStatus) {
-//        this.attemptID = attemptID;
-//        this.userID = userID;
-//        this.attemptTime = attemptTime;
-//        this.attemptDate = attemptDate;
-//        this.attemptStatus = attemptStatus;
-//    }
 
     public Attempt(String userID, boolean result, String authType) {
         this.attemptID = nextAttemptID++;
