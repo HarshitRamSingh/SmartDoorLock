@@ -101,6 +101,21 @@ public class DoorSimulationPage extends JFrame implements ActionListener, KeyLis
                     }
                 }
                 break;
+            case 'e':
+                // Simulate unauthorized rfid input
+                if(!authSystem.getRfidPassed()){
+                    rfidScanner.setRFID("notrfid");
+                    if(authSystem.verifyRFID(rfidScanner.scanRFID())){
+                        rfidScanner.getRFIDScanPanel().setBackground(Color.GREEN);
+                        faceScanner.start();
+                        faceScanner.setStart(true);
+                        faceScanner.getFaceScanPanel().setBackground(Color.WHITE);
+                        fingerprintScanner.start();
+                        fingerprintScanner.setStart(true);
+                        fingerprintScanner.getFingerprintScanPanel().setBackground(Color.WHITE);
+                        authSystem.setRfidPassed(true);
+                    }
+                }
             case 'f':
                 // Simulate authorized face input
                 if(faceScanner.getStart()){
@@ -153,6 +168,15 @@ public class DoorSimulationPage extends JFrame implements ActionListener, KeyLis
                     }
                 }
                 break;
+        }
+        if(authSystem.getDeadlock()){
+            fingerprintScanner.getFingerprintScanPanel().setBackground(Color.RED);
+            faceScanner.getFaceScanPanel().setBackground(Color.RED);
+            rfidScanner.getRFIDScanPanel().setBackground(Color.RED);
+            authSystem.setRfidPassed(true);
+            faceScanner.setStart(false);
+            fingerprintScanner.setStart(false);
+            System.out.println("Click exit to return to the main menu. ");
         }
     }
 }

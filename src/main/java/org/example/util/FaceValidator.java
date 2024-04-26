@@ -4,7 +4,7 @@ import org.example.model.*;
 public class FaceValidator {
 
     public FaceValidator() { }
-    public static boolean authenticateFace(String userID, String receivedFaceData, UsersDB authorizedUsers, TryCounter tryCounter) {
+    public static boolean authenticateFace(String receivedFaceData, UsersDB authorizedUsers) {
         // check for invalid input
         switch (receivedFaceData) {
             case "Object too far away" -> {
@@ -26,7 +26,6 @@ public class FaceValidator {
                         return true;
                     }
                 }
-                tryCounter.incrementFailedAttempts(userID);
                 System.out.println("Invalid Face.");
                 return false;
             }

@@ -4,7 +4,7 @@ import org.example.model.*;
 public class RFIDValidator {
 
     public RFIDValidator() { }
-    public static boolean authenticateRFID(String userID, String receivedRFIDData, UsersDB authorizedUsers, TryCounter tryCounter) {
+    public static boolean authenticateRFID(String receivedRFIDData, UsersDB authorizedUsers) {
         // check for invalid input
         switch (receivedRFIDData) {
             case "RFID not placed properly" -> {
@@ -26,7 +26,6 @@ public class RFIDValidator {
                         return true;
                     }
                 }
-                tryCounter.incrementFailedAttempts(userID);
                 System.out.println("Invalid RFID.");
                 return false;
             }

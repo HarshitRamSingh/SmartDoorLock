@@ -18,16 +18,21 @@ public class AuthenticationSystem {
     UsersDB authorizedUsers;
     Door door;
     TryCounter tryCounter;
-    //Timeout timeout;
+    TimeoutDB timeout;
     Logger logger;
     boolean rfidPassed;
+    boolean deadlock;
 
     public AuthenticationSystem(int id, UsersDB users){
         rfidPassed = false;
+        deadlock = false;
         systemID = id;
         authorizedUsers = users;
         door = new Door(1);
-        tryCounter = new TryCounter();
+        tryCounter = new TryCounter(timeout);
+    }
+    public TryCounter getTryCounter(){
+        return tryCounter;
     }
 
     public void unlockDoor(){
@@ -44,16 +49,43 @@ public class AuthenticationSystem {
     public boolean getRfidPassed(){
         return rfidPassed;
     }
+    public boolean getDeadlock(){
+        return deadlock;
+    }
 
     public boolean verifyRFID(RFID scan){
-        return RFIDValidator.authenticateRFID("t", scan.getRfidData(), authorizedUsers, tryCounter);
+        if(RFIDValidator.authenticateRFID(scan.getRfidData(), authorizedUsers)){
+            return true;
+        }
+        else {
+            if(tryCounter.incrementFailedAttempts('r')){
+                deadlock = true;
+            }
+            return false;
+        }
     }
 
     public boolean verifyFace(Face scan) {
-        return FaceValidator.authenticateFace("t", scan.getFaceData(), authorizedUsers, tryCounter);
+        if(FaceValidator.authenticateFace(scan.getFaceData(), authorizedUsers)){
+            return true;
+        }
+        else {
+            if(tryCounter.incrementFailedAttempts('f')){
+                deadlock = true;
+            }
+            return false;
+        }
     }
 
     public boolean verifyFinger(Fingerprint scan) {
-        return FingerprintValidator.authenticateFingerprint("t", scan.getFingerprintData(), authorizedUsers, tryCounter);
+        if(FingerprintValidator.authenticateFingerprint(scan.getFingerprintData(), authorizedUsers)){
+            return true;
+        }
+        else {
+            if(tryCounter.incrementFailedAttempts('p')){
+                deadlock = true;
+            }
+            return false;
+        }
     }
 }

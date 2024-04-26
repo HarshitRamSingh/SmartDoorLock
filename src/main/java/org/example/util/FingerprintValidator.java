@@ -4,7 +4,7 @@ import org.example.model.*;
 public class FingerprintValidator {
 
     public FingerprintValidator() { }
-    public static boolean authenticateFingerprint(String userID, String receivedFingerprintData, UsersDB authorizedUsers, TryCounter tryCounter) {
+    public static boolean authenticateFingerprint(String receivedFingerprintData, UsersDB authorizedUsers) {
         // check for invalid input
         switch (receivedFingerprintData) {
             case "Finger not placed properly" -> {
@@ -26,7 +26,6 @@ public class FingerprintValidator {
                         return true;
                     }
                 }
-                tryCounter.incrementFailedAttempts(userID);
                 System.out.println("Invalid fingerprint.");
                 return false;
             }

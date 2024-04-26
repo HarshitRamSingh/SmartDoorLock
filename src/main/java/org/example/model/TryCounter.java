@@ -4,62 +4,52 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TryCounter {
-    private int failedAttempts;
-    private TimeoutDB timeoutDB;
-    private Map<String, Integer> userFailedAttempts;
+    int failedRFIDCount = 0;
+    int failedFingerCount = 0;
+    int failedFaceCount = 0;
+    TimeoutDB timeoutDB;
 
-    public TryCounter(TimeoutDB timeoutDB) {
-        this.failedAttempts = 0;
-        this.timeoutDB = timeoutDB;
-        this.userFailedAttempts = new HashMap<>();
+    public TryCounter(TimeoutDB timeoutDb) {
+        timeoutDB = timeoutDb;
     }
 
-    public int getFailedAttempts(String userID) {
-        return this.userFailedAttempts.getOrDefault(userID, 0);
-    }
-
-    public void setFailedAttempts(int failedAttempts) {
-        this.failedAttempts = failedAttempts;
-    }
-
-    public TryCounter() {
-        this.userFailedAttempts = new HashMap<>();
-    }
-
-    public void incrementFailedAttempts(String userID) {
-        int currentFailedAttempts = getFailedAttempts(userID);
-        this.userFailedAttempts.put(userID, currentFailedAttempts + 1);
-        System.out.println("Current failed attempts for user " + userID + ": " + getFailedAttempts(userID));
-        if  (getFailedAttempts(userID) >= 3) {
-            System.out.println("User " + userID + " has reached the maximum number of failed attempts. Pushing to timeout.");
-            //pushToTimeout(userID);
+    public boolean incrementFailedAttempts(char attemptType){
+        switch(attemptType){
+            case 'p':
+                // Failed fingerprint attempt
+                failedFingerCount++;
+                System.out.println("Current Failed Fingerprint Scans: " + failedFingerCount);
+                if(failedFingerCount >= 3){
+                    // Fail count exceeded
+                    System.out.println("Fingerprint Fail Count Exceeded. ");
+                    return true;
+                }
+                break;
+            case 'f':
+                // Failed face attempt
+                failedFaceCount++;
+                System.out.println("Current Failed Face Scans: " + failedFaceCount);
+                if(failedFaceCount >= 3){
+                    // Fail count exceeded
+                    System.out.println("Face Fail Count Exceeded. ");
+                    return true;
+                }
+                break;
+            case 'r':
+                // Failed rfid attempt
+                failedRFIDCount++;
+                System.out.println("Current Failed RFID Scans: " + failedRFIDCount);
+                if(failedRFIDCount >= 3){
+                    // Fail count exceeded
+                    System.out.println("RFID Fail Count Exceeded. ");
+                    return true;
+                }
+                break;
         }
-    }
-
-    public void resetFailedAttempts() {
-        this.failedAttempts = 0;
+        return false;
     }
 
     public void pushToTimeout(String userID) {
         timeoutDB.addTimeout(userID);
-    }
-
-//    public void checkFailedAttempts() {
-//        if (this.failedAttempts > 3) {
-//            pushToTimeout();
-//        }
-//    }
-
-    public void unlockDoor() {
-        resetFailedAttempts();
-    }
-
-//    public void lockDoor() {
-//        incrementFailedAttempts();
-//        checkFailedAttempts();
-//    }
-
-    public void displayFailedAttempts() {
-        System.out.println("Failed attempts: " + this.failedAttempts);
     }
 }
