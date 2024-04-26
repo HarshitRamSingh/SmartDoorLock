@@ -1,81 +1,59 @@
 package org.example.service;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.example.controller.Door;
 import org.example.model.*;
+import org.example.util.FaceValidator;
+import org.example.util.FingerprintValidator;
+import org.example.util.RFIDValidator;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class AuthenticationSystem {
-    private int systemID;
-    private int userID;
+    int systemID;
+    String userID = "";
     UsersDB authorizedUsers;
     Door door;
-    FingerprintAuthenticator fingerprintAuth;
-    FaceAuthenticator faceAuth;
-    RFIDAuthenticator rfidAuth;
     TryCounter tryCounter;
     //Timeout timeout;
     Logger logger;
+    boolean rfidPassed;
 
     public AuthenticationSystem(int id, UsersDB users){
+        rfidPassed = false;
         systemID = id;
         authorizedUsers = users;
-        fingerprintAuth = new FingerprintAuthenticator(1);
-        faceAuth = new FaceAuthenticator(1);
-        rfidAuth = new RFIDAuthenticator(1);
         door = new Door(1);
+        tryCounter = new TryCounter();
     }
 
     public void unlockDoor(){
         door.setLocked(false);
+        System.out.println("Door Unlocked!");
     }
     public void lockDoor(){
         door.setLocked(true);
+        System.out.println("Door Locked!");
     }
-    public boolean validateUser(){
-        verifyFingerprint();
-        verifyFace();
-        verifyRFID();
-        return true;
+    public void setRfidPassed(boolean newPass){
+        rfidPassed = newPass;
     }
-
-    public boolean verifyFingerprint(){
-        // scan fingerprint
-        Fingerprint scan = fingerprintAuth.scanFingerprint();
-        // iterate through authorized users comparing fingerprint data
-        for(User user: authorizedUsers.getUsers()){
-            if(user.getFingerPrintData().equals(scan.getFingerprintData() + "")){
-                System.out.println("Fingerprint Verified.");
-                return true;
-            }
-        }
-        System.out.println("Invalid fingerprint.");
-        return false;
+    public boolean getRfidPassed(){
+        return rfidPassed;
     }
 
-    public boolean verifyFace(){
-        // scan face
-        Face scan = faceAuth.scanFace();
-        // iterate through authorized users comparing face data
-        for(User user: authorizedUsers.getUsers()){
-            if(user.getFaceData().equals(scan.getFaceData() + "")){
-                System.out.println("Face Verified.");
-                return true;
-            }
-        }
-        System.out.println("Invalid face.");
-        return false;
+    public boolean verifyRFID(RFID scan){
+        return RFIDValidator.authenticateRFID("t", scan.getRfidData(), authorizedUsers, tryCounter);
     }
 
-    public boolean verifyRFID(){
-        // scan RFID
-        RFID scan = rfidAuth.scanRFID();
-        // iterate through authorized users comparing rfid data
-        for(User user: authorizedUsers.getUsers()){
-            if(user.getRfidData().equals(scan.getRfidData() + "")){
-                System.out.println("RFID Verified.");
-                return true;
-            }
-        }
-        System.out.println("Invalid RFID.");
-        return false;
+    public boolean verifyFace(Face scan) {
+        return FaceValidator.authenticateFace("t", scan.getFaceData(), authorizedUsers, tryCounter);
+    }
+
+    public boolean verifyFinger(Fingerprint scan) {
+        return FingerprintValidator.authenticateFingerprint("t", scan.getFingerprintData(), authorizedUsers, tryCounter);
     }
 }

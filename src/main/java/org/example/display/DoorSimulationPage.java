@@ -4,28 +4,31 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import org.example.Main;
-import org.example.model.RFID;
-import org.example.model.User;
 import org.example.model.UsersDB;
-import org.example.service.AuthenticationSystem;
-import org.example.service.FaceAuthentication;
-import org.example.service.FingerprintAuthentication;
-import org.example.service.RFIDAuthentication;
+import org.example.service.*;
 
-public class DoorSimulationPage extends JFrame implements ActionListener {
+public class DoorSimulationPage extends JFrame implements ActionListener, KeyListener {
     UsersDB usersDB;
     JButton exitButton;
     JFrame doorFrame;
-    JButton fingerButton;
     JLabel doorStatusLabel;
+    FaceScanner faceScanner;
+    FingerprintScanner fingerprintScanner;
+    RFIDScanner rfidScanner;
     AuthenticationSystem authSystem;
 
     public DoorSimulationPage(UsersDB users){
 
         /* Database and Auth */
         usersDB = users;
+        faceScanner = new FaceScanner(1);
+        fingerprintScanner = new FingerprintScanner(1);
+        rfidScanner = new RFIDScanner(1);
+        rfidScanner.start();
         authSystem = new AuthenticationSystem(1, usersDB);
 
         /* JFrame Setup */
@@ -41,18 +44,24 @@ public class DoorSimulationPage extends JFrame implements ActionListener {
         doorStatusLabel = new JLabel("Door Status: ");
         statusPanel.add(doorStatusLabel);
 
+        /* Authentication Panel */
+        JPanel authPanel = new JPanel();
+        authPanel.setLayout(new GridLayout(1, 3));
+        authPanel.add(rfidScanner.getRFIDScanPanel());
+        authPanel.add(faceScanner.getFaceScanPanel());
+        authPanel.add(fingerprintScanner.getFingerprintScanPanel());
+        authPanel.setFocusable(true);
+        authPanel.addKeyListener(this);
+
         /* Exit Button */
         exitButton = new JButton("Exit");
         exitButton.addActionListener(this);
-
-        fingerButton = new JButton("Scan Finger");
-        fingerButton.addActionListener(this);
-
+        exitButton.setFocusable(false);
 
         /* Add to frame and pack */
-        doorFrame.add(doorStatusLabel);
+        doorFrame.add(statusPanel);
+        doorFrame.add(authPanel);
         doorFrame.add(exitButton);
-        doorFrame.add(fingerButton);
         doorFrame.pack();
     }
     @Override
@@ -61,8 +70,89 @@ public class DoorSimulationPage extends JFrame implements ActionListener {
             doorFrame.dispose();
             Main main = new Main(usersDB);
         }
-        if(actionEvent.getSource() == fingerButton){
-            authSystem.validateUser();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent keyEvent) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent keyEvent) {
+        switch (keyEvent.getKeyChar()){
+            case 'r':
+                // Simulate authorized RFID input
+                if(!authSystem.getRfidPassed()){
+                    rfidScanner.setRFID("rfid");
+                    if(authSystem.verifyRFID(rfidScanner.scanRFID())){
+                        rfidScanner.getRFIDScanPanel().setBackground(Color.GREEN);
+                        faceScanner.start();
+                        faceScanner.setStart(true);
+                        faceScanner.getFaceScanPanel().setBackground(Color.WHITE);
+                        fingerprintScanner.start();
+                        fingerprintScanner.setStart(true);
+                        fingerprintScanner.getFingerprintScanPanel().setBackground(Color.WHITE);
+                        authSystem.setRfidPassed(true);
+                    }
+                }
+                break;
+            case 'f':
+                // Simulate authorized face input
+                if(faceScanner.getStart()){
+                    faceScanner.setFace("face");
+                    if(authSystem.verifyFace(faceScanner.scanFace())){
+                        faceScanner.getFaceScanPanel().setBackground(Color.GREEN);
+                        faceScanner.setStart(false);
+                        fingerprintScanner.getFingerprintScanPanel().setBackground(Color.GRAY);
+                        fingerprintScanner.setStart(false);
+                        authSystem.unlockDoor();
+                    }
+                }
+                break;
+            case 'd':
+                // Simulate unauthorized face input
+                if(faceScanner.getStart()){
+                    faceScanner.setFace("notface");
+                    if(authSystem.verifyFace(faceScanner.scanFace())){
+                        faceScanner.getFaceScanPanel().setBackground(Color.GREEN);
+                        faceScanner.setStart(false);
+                        fingerprintScanner.getFingerprintScanPanel().setBackground(Color.GRAY);
+                        fingerprintScanner.setStart(false);
+                        authSystem.unlockDoor();
+                    }
+                }
+                break;
+            case 'p':
+                // Simulate authorized fingerprint input
+                if(fingerprintScanner.getStart()){
+                    fingerprintScanner.setFinger("finger");
+                    if(authSystem.verifyFinger(fingerprintScanner.scanFingerprint())){
+                        fingerprintScanner.getFingerprintScanPanel().setBackground(Color.GREEN);
+                        fingerprintScanner.setStart(false);
+                        faceScanner.getFaceScanPanel().setBackground(Color.GRAY);
+                        faceScanner.setStart(false);
+                        authSystem.unlockDoor();
+                    }
+                }
+                break;
+            case 'o':
+                // Simulate unauthorized fingerprint input
+                if(fingerprintScanner.getStart()){
+                    fingerprintScanner.setFinger("notfinger");
+                    if(authSystem.verifyFinger(fingerprintScanner.scanFingerprint())){
+                        fingerprintScanner.getFingerprintScanPanel().setBackground(Color.GREEN);
+                        fingerprintScanner.setStart(false);
+                        faceScanner.getFaceScanPanel().setBackground(Color.GRAY);
+                        faceScanner.setStart(false);
+                        authSystem.unlockDoor();
+                    }
+                }
+                break;
         }
     }
 }
