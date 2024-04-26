@@ -1,15 +1,23 @@
 package org.example.service;
 
 import org.example.model.Attempt;
+import org.example.model.Logger;
+import org.example.model.TryCounter;
 import org.example.model.UsersDB;
 import org.example.util.FaceValidator;
+import org.example.model.Logger;
 
 public class FaceAuthentication {
     private FaceValidator faceValidator;
-    public FaceAuthentication(UsersDB usersDB, Attempt attempt) {
-        this.faceValidator = new FaceValidator(usersDB, attempt);
+    private Logger logger;
+    public FaceAuthentication(UsersDB usersDB, Attempt attempt, TryCounter tryCounter, Logger logger) {
+        this.logger = logger;
+        this.faceValidator = new FaceValidator(usersDB, attempt, tryCounter);
     }
     public boolean authenticateFace(String userID, String receivedFaceData, UsersDB usersDB1) {
-        return faceValidator.authenticateFace(userID, receivedFaceData, usersDB1);
+        boolean result = faceValidator.authenticateFace(userID, receivedFaceData, usersDB1);
+        Attempt attempt = new Attempt(userID, result, "Face");
+        logger.addAttempt(attempt);
+        return result;
     }
 }

@@ -2,10 +2,15 @@ package org.example.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 public class Attempt {
+    private static int nextAttemptID = 1;
+    private static int maxFailedAttempts = 3;
+    private LocalDateTime attemptDateTime;
+    private String authType;
     private int attemptID;
-    private int userID;
+    private String userID;
     private Map<String, Integer> userFailedAttempts;
     private int failedAttempts;
     private String attemptTime;
@@ -20,11 +25,11 @@ public class Attempt {
         this.attemptID = attemptID;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return this.userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -72,11 +77,19 @@ public class Attempt {
         this.userFailedAttempts.put(userID, getFailedAttempts(userID) + 1);
     }
 
-    public Attempt(int attemptID, int userID, String attemptTime, String attemptDate, String attemptStatus) {
-        this.attemptID = attemptID;
+//    public Attempt(int attemptID, String userID, String attemptTime, String attemptDate, String attemptStatus) {
+//        this.attemptID = attemptID;
+//        this.userID = userID;
+//        this.attemptTime = attemptTime;
+//        this.attemptDate = attemptDate;
+//        this.attemptStatus = attemptStatus;
+//    }
+
+    public Attempt(String userID, boolean result, String authType) {
+        this.attemptID = nextAttemptID++;
         this.userID = userID;
-        this.attemptTime = attemptTime;
-        this.attemptDate = attemptDate;
-        this.attemptStatus = attemptStatus;
+        this.authType = authType;
+        this.attemptStatus = result ? "Success" : "Failed";
+        this.attemptDateTime = LocalDateTime.now();
     }
 }

@@ -1,30 +1,29 @@
 package org.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Logger {
+    private static int nextLogID = 1; // static variable
     private int logID;
-    private String logData;
+    private List<Attempt> attempts;
+
+    public Logger() {
+        this.logID = nextLogID++; // increment logID with every new object
+        this.attempts = new ArrayList<>();
+    }
 
     public int getLogID() {
         return this.logID;
     }
 
-    public void setLogID(int logID) {
-        this.logID = logID;
+    // remove the setLogID method as logID is now automatically set
+
+    public List<Attempt> getAttempts() {
+        return this.attempts;
     }
 
-    public String getLogData() {
-        return this.logData;
-    }
-
-    public void setLogData(String logData) {
-        this.logData = logData;
-    }
-
-    public Logger() {
-    }
-
-    public Logger(int logID, String logData) {
-        this.logID = logID;
-        this.logData = logData;
+    public void addAttempt(Attempt attempt) {
+        this.attempts.add(attempt);
     }
 }

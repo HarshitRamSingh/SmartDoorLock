@@ -1,24 +1,15 @@
 package org.example.model;
 
 public class Admin {
-    private int adminID;
-    private String adminName;
-    private String adminPassword;
+    private String adminID = "SmartLockAdmin";
+    private String adminPassword = "admin123";
 
-    public int getAdminID() {
+    public String getAdminID() {
         return this.adminID;
     }
 
-    public void setAdminID(int adminID) {
+    public void setAdminID(String adminID) {
         this.adminID = adminID;
-    }
-
-    public String getAdminName() {
-        return this.adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
     }
 
     public String getAdminPassword() {
@@ -32,9 +23,12 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(int adminID, String adminName, String adminPassword) {
+    public Admin(String adminID, String adminPassword) {
         this.adminID = adminID;
-        this.adminName = adminName;
         this.adminPassword = adminPassword;
+    }
+
+    public boolean validateCredentials(String adminID, String adminPassword) { // changed parameter type from int to String
+        return this.adminID.equals(adminID) && this.adminPassword.equals(adminPassword);
     }
 }
