@@ -3,11 +3,8 @@ package org.example;
 import org.example.display.AdminLoginPage;
 import org.example.display.AdminMainPage;
 import org.example.display.DoorSimulationPage;
-import org.example.model.Admin;
-import org.example.model.User;
+import org.example.model.*;
 import org.example.controller.DoorController;
-import org.example.model.Attempt;
-import org.example.model.UsersDB;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,8 +66,8 @@ public class Main extends JFrame implements ActionListener {
 
         // Create new UserDB
         UsersDB users = new UsersDB();
-        users.addUser(new User("Danielle","rfid", "face", "0"));
-        users.addUser(new User("Harshit","rfid", "face", "finger"));
+        users.addUser(new User("Danielle",new RFID("rfid"), new Face("face"), new Fingerprint("0")));
+        users.addUser(new User("Harshit",new RFID("rfid"), new Face("face"), new Fingerprint("finger")));
 
         // Create new main page using users
         Main mainPage = new Main(users);

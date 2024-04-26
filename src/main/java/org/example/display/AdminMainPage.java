@@ -1,8 +1,7 @@
 package org.example.display;
 
 import org.example.Main;
-import org.example.model.User;
-import org.example.model.UsersDB;
+import org.example.model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -91,7 +90,7 @@ public class AdminMainPage extends JFrame implements ActionListener {
                 String rfid = rand.nextInt(1000) + "";
                 String face = rand.nextInt(1000) + "";
                 String fingerprint = rand.nextInt(1000) + "";
-                User newUser = new User(userId, rfid, face, fingerprint);
+                User newUser = new User(userId, new RFID(rfid), new Face(face), new Fingerprint(fingerprint));
                 usersDB.addUser(newUser);
                 System.out.println("User " + userId + " added successfully. \n");
             }
