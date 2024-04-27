@@ -7,10 +7,8 @@ public class TryCounter {
     int failedRFIDCount = 0;
     int failedFingerCount = 0;
     int failedFaceCount = 0;
-    TimeoutDB timeoutDB;
 
-    public TryCounter(TimeoutDB timeoutDb) {
-        timeoutDB = timeoutDb;
+    public TryCounter() {
     }
 
     public boolean incrementFailedAttempts(char attemptType){
@@ -47,9 +45,5 @@ public class TryCounter {
                 break;
         }
         return false;
-    }
-
-    public void pushToTimeout(String userID) {
-        timeoutDB.addTimeout(userID);
     }
 }

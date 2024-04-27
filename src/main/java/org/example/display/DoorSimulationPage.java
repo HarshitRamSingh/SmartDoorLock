@@ -176,7 +176,7 @@ public class DoorSimulationPage extends JFrame implements ActionListener, KeyLis
             authSystem.setRfidPassed(true);
             faceScanner.setStart(false);
             fingerprintScanner.setStart(false);
-            System.out.println("Click exit to return to the main menu. ");
+            System.out.println("Click exit to return to the main menu or wait for timeout.");
         }
     }
 }

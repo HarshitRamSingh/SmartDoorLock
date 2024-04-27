@@ -11,14 +11,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.Timer;
 
 public class AuthenticationSystem {
     int systemID;
-    String userID = "";
     UsersDB authorizedUsers;
     Door door;
     TryCounter tryCounter;
-    TimeoutDB timeout;
     Logger logger;
     boolean rfidPassed;
     boolean deadlock;
@@ -29,7 +28,7 @@ public class AuthenticationSystem {
         systemID = id;
         authorizedUsers = users;
         door = new Door(1);
-        tryCounter = new TryCounter(timeout);
+        tryCounter = new TryCounter();
     }
     public TryCounter getTryCounter(){
         return tryCounter;
@@ -51,6 +50,10 @@ public class AuthenticationSystem {
     }
     public boolean getDeadlock(){
         return deadlock;
+    }
+
+    public void timeout(){
+
     }
 
     public boolean verifyRFID(RFID scan){
