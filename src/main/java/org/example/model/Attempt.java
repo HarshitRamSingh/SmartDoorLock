@@ -51,6 +51,17 @@ public class Attempt {
         this.attemptDateTime = attemptDateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Attempt{" +
+                "userID='" + userID + '\'' +
+                ", attemptID=" + attemptID +
+                ", authType='" + authType + '\'' +
+                ", attemptStatus='" + attemptStatus + '\'' +
+                ", attemptDateTime=" + attemptDateTime +
+                '}';
+    }
+
     public Attempt() {
     }
 

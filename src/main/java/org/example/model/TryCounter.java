@@ -44,20 +44,9 @@ public class TryCounter {
         timeoutDB.addTimeout(userID);
     }
 
-//    public void checkFailedAttempts() {
-//        if (this.failedAttempts > 3) {
-//            pushToTimeout();
-//        }
-//    }
-
     public void unlockDoor() {
         resetFailedAttempts();
     }
-
-//    public void lockDoor() {
-//        incrementFailedAttempts();
-//        checkFailedAttempts();
-//    }
 
     public void displayFailedAttempts() {
         System.out.println("Failed attempts: " + this.failedAttempts);

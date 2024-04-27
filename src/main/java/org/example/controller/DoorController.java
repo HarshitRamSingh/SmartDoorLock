@@ -43,7 +43,7 @@ public class DoorController {
                         String userID = row.get(4);
                         RFID rfidData = new RFID(row.get(5));
                         Face faceData = new Face(row.get(6));
-                        Fingerprint fingerprintData = new Fingerprint(row.get(5));
+                        Fingerprint fingerprintData = new Fingerprint(row.get(7));
                         User user = new User(userID, rfidData, faceData, fingerprintData);
                         usersDB.addUser(user);
                     }
@@ -51,7 +51,7 @@ public class DoorController {
                         String userID = row.get(4);
                         RFID rfidData = new RFID(row.get(5));
                         Face faceData = new Face(row.get(6));
-                        Fingerprint fingerprintData = new Fingerprint(row.get(5));
+                        Fingerprint fingerprintData = new Fingerprint(row.get(7));
                         User user = new User(userID, rfidData, faceData, fingerprintData);
                         usersDB.modifyUser(user);
                     }

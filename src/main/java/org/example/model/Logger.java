@@ -36,5 +36,6 @@ public class Logger {
 
     public void addAttempt(Attempt attempt) {
         this.attempts.add(attempt);
+        System.out.println(attempt.toString());
     }
 }

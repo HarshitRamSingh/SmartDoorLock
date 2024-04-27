@@ -44,7 +44,7 @@ public class UsersDB {
 
     public void viewUsers() {
         for (User u : users) {
-            System.out.println(u.getUserID() + " " + u.getRfidData() + " " + u.getFaceData() + " " + u.getFingerPrintData());
+            System.out.println("User: " + u.getUserID() + " || RFID Data: " + u.getRfidData() + " || Face Data: " + u.getFaceData() + " || Fingerprint Data: " + u.getFingerPrintData());
         }
     }
 

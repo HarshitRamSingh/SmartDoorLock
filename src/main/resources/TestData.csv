@@ -10,3 +10,15 @@ User,Dan,DanRFID,DanFace,DanFingerprint
 Admin,SmartLockAdmin,admin123,deleteUser,Harshit
 Admin,SmartLockAdmin,admin123,modifyUser,Danielle,AsadRFID,AsadFace,AsadFingerprint
 Admin,Harshit,Harshit,viewUsers
+
+Admin login add user
+admin login failed to add user
+modify user
+delete user
+view users
+
+User validation success all cases
+User validation failed one case
+
+timeout for user
+logger outputs

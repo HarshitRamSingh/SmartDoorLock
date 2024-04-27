@@ -25,7 +25,7 @@ public class Main {
         FingerprintAuthentication fingerprintAuthentication = new FingerprintAuthentication(usersDB, attempt, tryCounter, logger);
         DoorController doorController = new DoorController(rfidAuthentication, faceAuthentication, fingerprintAuthentication, usersDB, attempt, tryCounter, timeoutDB);
         try {
-            Iterator<List<String>> rowIterator = CSVReader.readCSV("src/main/resources/TestData1.csv");
+            Iterator<List<String>> rowIterator = CSVReader.readCSV("src/main/resources/UserFailsBoth.csv");
             while (rowIterator.hasNext()) {
                 doorController.processUser(rowIterator.next());
             }
